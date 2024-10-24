@@ -20,9 +20,11 @@ async function cargarProyectos() {
         if (!repo.private) {
             proyectosContainer.innerHTML += `
                 <div class="proyecto">
-                    <h3>${repo.name}</h3>
-                    <p>${repo.description || 'Sin descripción'}</p>
-                    <a href="${repo.html_url}" target="_blank">Ver en GitHub</a>
+                    <span>
+                        <h3>${repo.name}</h3>
+                        <p>${repo.description || 'Sin descripción'}</p>
+                        <a href="${repo.html_url}" target="_blank">Ver en GitHub</a>
+                    </span>
                 </div>
             `;
         }
