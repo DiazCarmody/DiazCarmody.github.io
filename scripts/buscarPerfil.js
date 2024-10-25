@@ -31,6 +31,18 @@ async function cargarProyectos() {
     });
 }
 
+function mostrarNave() {
+    const nave = document.querySelector('.spaceship');
+    nave.classList.add('show'); // Añade la clase para hacer visible la nave
+    
+    setTimeout(() => {
+        nave.classList.remove('show'); // Después de un tiempo, quita la clase
+    }, 15000); // Duración total de la animación (15s) - se oculta al final
+}
+
+// Llama a la función cada 8 segundos
+setInterval(mostrarNave, 8000); // Mostrar cada 8 segundos
+
 cargarPerfil();
 cargarProyectos();
 

@@ -1,4 +1,4 @@
-:root{
+:root {
     --principal-color: #53d98b;
 }
 
@@ -6,11 +6,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Plus Jakarta Sans", serif;
-    overflow: auto;
+    overflow: hidden; /* Oculta el scrollbar */
     background-color: black;
-
     user-select: none;
-
 }
 
 /* Estrellas de fondo */
@@ -31,20 +29,17 @@ body {
     box-shadow: 0px 0px 4px white;
     border-radius: 50%;
     opacity: 0.8;
-    animation: stars 10s infinite linear;
-
+    animation: stars 10s infinite linear, twinkle 1.5s infinite; /* Efecto de parpadeo */
 }
 
 @keyframes stars {
-    0% { 
-        opacity: 0.5;
-        transform: translate(0, 0); 
-    }
-    100% 
-    { 
-        opacity: 1;
-        transform: translate(70px, 70px);
-    }
+    0% { opacity: 0.5; transform: translate(0, 0); }
+    100% { opacity: 1; transform: translate(70px, 70px); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
 }
 
 /* Estilos del contenido */
@@ -53,6 +48,16 @@ body {
     color: white;
     text-align: center;
     z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h1 {
@@ -62,11 +67,13 @@ h1 {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 h2 {
     background: linear-gradient(to top, var(--principal-color), #00ff95);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .perfil {
     display: flex;
     align-items: center;
@@ -74,6 +81,7 @@ h2 {
     margin: 20px;
     padding: 10px;
 }
+
 .perfil img {
     border-radius: 50%;
     width: 100px;
@@ -81,12 +89,14 @@ h2 {
     margin-right: 20px;
     border: 3px solid var(--principal-color);
 }
+
 .proyectos {
     display: flex;
     flex-wrap: wrap;
     align-items: left;
     justify-content: center;
 }
+
 .proyecto {
     background: #141414;
     border: 2px solid var(--principal-color);
@@ -96,47 +106,105 @@ h2 {
     padding: 15px;
     width: 280px;
     transition: transform 0.3s, box-shadow 0.3s;
-
     position: relative;
     overflow: hidden;
     z-index: 10;
 }
-.proyecto span{
+
+.proyecto span {
     z-index: 20;
 }
-.proyecto::after{
+
+.proyecto::after {
     content: "";
     position: absolute;
-    background: linear-gradient(to top, var(--principal-color), #53d9afc1 );
+    background: linear-gradient(to top, var(--principal-color), #53d9afc1);
     bottom: 0;
     left: 0;
     height: 0;
     width: 100%;
     z-index: -1;
 }
-.proyecto:hover span a{
+
+.proyecto:hover span a {
     color: #111;
     font-weight: bolder;
 }
-.proyecto:hover::after{
+
+.proyecto:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.proyecto:hover::after {
     height: 100%;
     transition: 0.4s;
 }
-.proyecto a{
+
+.proyecto a {
     color: var(--principal-color);
     text-decoration: none;
 }
+
 .redes {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     filter: hue-rotate(-15deg) saturate(1.1);
 }
+
 .redes img {
     width: 40px;
     margin: 0 10px;
     transition: transform 0.3s;
 }
+
 .redes img:hover {
-    transform: scale(1.1);
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Nave espacial con pollito */
+.spaceship {
+    position: absolute;
+    top: 5%; /* Empieza más arriba */
+    left: 100%; /* Comienza fuera de la pantalla */
+    animation: fly 15s linear infinite, verticalMove 5s ease-in-out infinite; /* Combina animaciones */
+    z-index: -1; /* Asegúrate de que esté detrás de otros elementos */
+    opacity: 0; /* Inicia invisible */
+    transition: opacity 0.5s ease-in; /* Transición suave para la aparición */
+}
+
+.spaceship img {
+    width: 100px; /* Tamaño inicial */
+    max-width: 10vw; /* Ajusta para pantallas más grandes */
+    height: auto; /* Mantiene la proporción */
+}
+
+.show {
+    opacity: 1; /* Cuando se añade esta clase, la nave es visible */
+}
+
+
+@keyframes fly {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100vw); /* Mueve la nave a través de toda la pantalla */
+    }
+}
+
+@keyframes verticalMove {
+    0%, 100% {
+        top: 5%; /* Empieza en la parte superior */
+    }
+    50% {
+        top: 70%; /* Baja a la parte inferior */
+    }
+}
+
+/* Media query para responsive */
+@media (max-width: 600px) {
+    .spaceship img {
+        width: 80px; /* Ajusta el tamaño en pantallas pequeñas */
+    }
 }
